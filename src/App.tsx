@@ -9,7 +9,7 @@ const db = firebase.firestore();
 
 const App: React.FC = () => {
   useEffect(() => {
-    db.collection('test').add({ name: 'test' });
+    // db.collection('test').add({ name: 'test' });
   }, []);
   return (
     <FirebaseAuth>
