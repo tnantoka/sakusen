@@ -1,6 +1,56 @@
 rules_version = '2';
+
 service cloud.firestore {
+  function isValidUser(user) {
+    return user.size() == 2
+      && 'createdAt' in user && user.createdAt is timestamp
+      && 'updatedAt' in user && user.updatedAt is timestamp;
+  }
+
+  function isValidProfile(profile) {
+    return profile.size() == 5
+      && 'displayName' in profile && profile.displayName is string
+      && 'photoURL' in profile && profile.photoURL is string
+      && 'screenName' in profile && profile.screenName is string
+      && 'createdAt' in profile && profile.createdAt is timestamp
+      && 'updatedAt' in profile && profile.updatedAt is timestamp;
+  }
+
   match /databases/{database}/documents {
+    function user(uid) {
+      return /databases/$(database)/documents/users/$(uid)
+    }
+
+    function profile(uid) {
+      return /databases/$(database)/documents/profiles/$(uid)
+    }
+
+    match /users/{uid} {
+      allow get: if request.auth != null
+        && request.auth.uid == uid;
+
+      allow create: if request.auth != null
+        && request.auth.uid == uid
+        && isValidUser(request.resource.data)
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time
+        && !exists(profile(request.auth.uid))
+        && existsAfter(profile(request.auth.uid))
+    }
+
+    match /profiles/{uid} {
+      allow read;
+
+      allow create: if request.auth != null
+        && request.auth.uid == uid
+        && isValidProfile(request.resource.data)
+        && request.resource.data.displayName == request.auth.token.name
+        && request.resource.data.photoURL == request.auth.token.picture
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time
+        && !exists(user(request.auth.uid))
+        && existsAfter(user(request.auth.uid))
+    }
     match /{document=**} {
       allow read, write: if false;
     }

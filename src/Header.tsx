@@ -14,7 +14,7 @@ import {
 import { FirebaseContext, signIn, signOut } from './FirebaseAuth';
 
 const App: React.FC = () => {
-  const { uid, displayName } = useContext(FirebaseContext);
+  const { uid, displayName, photoURL } = useContext(FirebaseContext);
 
   return (
     <>
@@ -22,7 +22,16 @@ const App: React.FC = () => {
         <NavbarBrand href="/">さくせん</NavbarBrand>
         <Nav className="ml-auto" navbar>
           <NavItem>
-            <i className="nes-icon twitter"></i>
+            {!!photoURL ? (
+              <img
+                className="nes-avatar"
+                src={photoURL!}
+                alt=""
+                style={{ imageRendering: 'pixelated' }}
+              />
+            ) : (
+              <i className="nes-icon twitter"></i>
+            )}
           </NavItem>
           {!!uid && (
             <UncontrolledDropdown nav inNavbar>

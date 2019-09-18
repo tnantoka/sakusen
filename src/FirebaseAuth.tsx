@@ -2,46 +2,83 @@ import React, { useEffect, useState } from 'react';
 
 import firebase from './firebase';
 
+const db = firebase.firestore();
+
 interface FirebaseContextState {
   uid: string | null;
   displayName: string | null;
+  photoURL: string | null;
+  screenName: string | null;
 }
 
 export const FirebaseContext = React.createContext<FirebaseContextState>({
   uid: null,
   displayName: null,
+  photoURL: null,
+  screenName: null,
 });
 
 export const FirebaseAuth: React.FC = ({ children }) => {
   const [uid, setUid] = useState<string | null>(null);
   const [displayName, setDisplayName] = useState<string | null>(null);
+  const [photoURL, setPhotoURL] = useState<string | null>(null);
+  const [screenName, setScreenName] = useState<string | null>(null);
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(async user => {
+    return firebase.auth().onAuthStateChanged(async user => {
       if (!user) {
         return;
       }
-      console.log(user.providerData);
-      setUid(user.uid || null);
-      setDisplayName(user.displayName || null);
+      const unsubscribe = db
+        .doc(`profiles/${user.uid}`)
+        .onSnapshot(snapshot => {
+          if (!snapshot.exists) {
+            return;
+          }
+          setUid(user.uid);
+          setDisplayName(snapshot.get('displayName'));
+          setPhotoURL(snapshot.get('photoURL'));
+          setScreenName(snapshot.get('screenName'));
+          unsubscribe();
+        });
     });
-    return unsubscribe;
   }, []);
 
   useEffect(() => {
     firebase
       .auth()
       .getRedirectResult()
-      .then(result => {
+      .then(async result => {
         if (!result || !result.additionalUserInfo) {
           return;
         }
-        console.log(result.additionalUserInfo.username);
+        const { additionalUserInfo } = result;
+        const user = result.user!;
+
+        if ((await db.doc(`users/${user.uid}`).get()).exists) {
+        } else {
+          const batch = db.batch();
+
+          batch.set(db.doc(`users/${user.uid}`), {
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          });
+
+          batch.set(db.doc(`profiles/${user.uid}`), {
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            screenName: additionalUserInfo.username,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          });
+
+          return batch.commit();
+        }
       });
   }, []);
   return (
     <FirebaseContext.Provider
-      value={{ uid, displayName }}
+      value={{ uid, displayName, photoURL, screenName }}
       children={children}
     />
   );
