@@ -55,25 +55,46 @@ export const FirebaseAuth: React.FC = ({ children }) => {
         const { additionalUserInfo } = result;
         const user = result.user!;
 
-        if ((await db.doc(`users/${user.uid}`).get()).exists) {
-        } else {
-          const batch = db.batch();
+        const profile: any = additionalUserInfo.profile;
+        const displayName = profile.name;
+        const screenName = additionalUserInfo.username;
+        const photoURL = profile.profile_image_url_https!;
 
+        const batch = db.batch();
+        if ((await db.doc(`users/${user.uid}`).get()).exists) {
+          await user.updateProfile({ displayName, photoURL });
+          await user.getIdToken(true);
+
+          batch.update(db.doc(`users/${user.uid}`), {
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          });
+
+          batch.update(db.doc(`profiles/${user.uid}`), {
+            displayName,
+            photoURL,
+            screenName,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          });
+        } else {
           batch.set(db.doc(`users/${user.uid}`), {
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           });
 
           batch.set(db.doc(`profiles/${user.uid}`), {
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-            screenName: additionalUserInfo.username,
+            displayName,
+            photoURL,
+            screenName,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           });
-
-          return batch.commit();
         }
+        await batch.commit();
+
+        setUid(user.uid);
+        setDisplayName(displayName);
+        setPhotoURL(photoURL);
+        setScreenName(screenName!);
       });
   }, []);
   return (

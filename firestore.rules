@@ -35,7 +35,12 @@ service cloud.firestore {
         && request.resource.data.createdAt == request.time
         && request.resource.data.updatedAt == request.time
         && !exists(profile(request.auth.uid))
-        && existsAfter(profile(request.auth.uid))
+        && existsAfter(profile(request.auth.uid));
+
+      allow update: if request.auth != null
+        && request.auth.uid == uid
+        && isValidUser(request.resource.data)
+        && request.resource.data.updatedAt == request.time;
     }
 
     match /profiles/{uid} {
@@ -49,7 +54,14 @@ service cloud.firestore {
         && request.resource.data.createdAt == request.time
         && request.resource.data.updatedAt == request.time
         && !exists(user(request.auth.uid))
-        && existsAfter(user(request.auth.uid))
+        && existsAfter(user(request.auth.uid));
+
+      allow update: if request.auth != null
+        && request.auth.uid == uid
+        && isValidProfile(request.resource.data)
+        && request.resource.data.displayName == request.auth.token.name
+        && request.resource.data.photoURL == request.auth.token.picture
+        && request.resource.data.updatedAt == request.time;
     }
     match /{document=**} {
       allow read, write: if false;
