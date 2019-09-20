@@ -5,7 +5,6 @@ import FirebaseAuth from './FirebaseAuth';
 import Header from './Header';
 
 const App: React.FC = () => {
-
   return (
     <FirebaseAuth>
       <Header />

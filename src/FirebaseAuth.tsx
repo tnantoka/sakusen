@@ -95,6 +95,11 @@ export const FirebaseAuth: React.FC = ({ children }) => {
         setDisplayName(displayName);
         setPhotoURL(photoURL);
         setScreenName(screenName!);
+      })
+      .catch(e => {
+        if (e.code !== 'auth/user-cancelled') {
+          throw e;
+        }
       });
   }, []);
   return (
