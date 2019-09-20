@@ -12,10 +12,17 @@ import {
   Container,
 } from 'reactstrap';
 
-import { FirebaseContext, signIn, signOut } from './FirebaseAuth';
+import { FirebaseContext, signIn, signOut, deactivate } from './FirebaseAuth';
 
 const App: React.FC = () => {
   const { uid, displayName, photoURL } = useContext(FirebaseContext);
+
+  const onClickDeactivate = () => {
+    if (!window.confirm('全てのデータを削除して退会します。よろしいですか？')) {
+      return;
+    }
+    deactivate();
+  };
 
   return (
     <>
@@ -44,7 +51,9 @@ const App: React.FC = () => {
                   <DropdownItem header>Option 1</DropdownItem>
                   <DropdownItem onClick={signOut}>ログアウト</DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem>たいかい</DropdownItem>
+                  <DropdownItem onClick={onClickDeactivate}>
+                    たいかい
+                  </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             )}

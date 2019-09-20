@@ -120,4 +120,23 @@ export const signOut = () => {
   window.location.href = '/';
 };
 
+export const deactivate = async () => {
+  const user = firebase.auth().currentUser!;
+
+  const batch = db.batch();
+  batch.delete(db.doc(`users/${user.uid}`));
+  batch.delete(db.doc(`profiles/${user.uid}`));
+  await batch.commit();
+
+  try {
+    await firebase.auth().currentUser!.delete();
+  } catch(e) {
+    if (e.code !== 'auth/requires-recent-login') {
+      throw e;
+    }
+  }
+
+  window.location.href = '/';
+};
+
 export default FirebaseAuth;
