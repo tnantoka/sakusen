@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import * as H from 'history';
-import { Container, Row, Col } from 'reactstrap';
 
 import Layout from './Layout';
+import Strategy from './Strategy';
 import firebase from '../firebase';
 import { FirebaseContext } from '../FirebaseAuth';
 
@@ -32,40 +32,27 @@ const NewStrategy: React.FC<NewStrategyProps> = ({ history }) => {
 
   return (
     <Layout>
-      <Container>
-        <Row>
-          <Col xs={12} md={{ size: 8, offset: 2 }} className="px-0">
-            <div className="nes-container is-rounded is-dark">
-              <p className="ml-4 my-2">ガンガンいこうぜ</p>
-              <p className="ml-4 my-2">バッチリがんばれ</p>
-              <p className="ml-4 my-2">おれにまかせろ</p>
-              <p className="ml-4 my-2">じゅもんつかうな</p>
-              <p className="ml-4 my-2">いのちだいじに</p>
-              <p className="ml-4 my-2">めいれいさせろ</p>
-
-              <div className="nes-field is-inline">
-                ▶
-                <input
-                  type="text"
-                  className="nes-input is-dark ml-2"
-                  placeholder="あなたのさくせん"
-                  onChange={onChangeText}
-                  value={text}
-                />
-              </div>
-            </div>
-            <p className="text-center">
-              <button
-                className={`nes-btn h3 ${!text.length && 'is-disabled'}`}
-                onClick={onClickSave}
-                disabled={!text.length}
-              >
-                ほぞんする
-              </button>
-            </p>
-          </Col>
-        </Row>
-      </Container>
+      <Strategy>
+        <div className="nes-field is-inline">
+          ▶
+          <input
+            type="text"
+            className="nes-input is-dark ml-2"
+            placeholder="あなたのさくせん"
+            onChange={onChangeText}
+            value={text}
+          />
+        </div>
+      </Strategy>
+      <p>
+        <button
+          className={`nes-btn h3 ${!text.length && 'is-disabled'}`}
+          onClick={onClickSave}
+          disabled={!text.length}
+        >
+          ほぞんする
+        </button>
+      </p>
     </Layout>
   );
 };
