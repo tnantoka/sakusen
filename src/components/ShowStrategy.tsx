@@ -31,10 +31,16 @@ const ShowStrategy: React.FC<ShowStrategyProps> = ({
           (await snapshot.get('profile.ref').get()).get('screenName')
         );
         setIsOwner(snapshot.get('profile.ref').path.endsWith(uid));
+      })
+      .catch(() => {
+        history.push('/');
       });
-  }, [sid, uid]);
+  }, [sid, uid, history]);
 
   const onClickDelete = async () => {
+    if (!uid) {
+      return;
+    }
     if (!window.confirm('この作戦を削除します。よろしいですか？')) {
       return;
     }

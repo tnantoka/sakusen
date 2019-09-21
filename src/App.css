@@ -8,3 +8,7 @@
 body {
   font-family: "NuKinakoMochiFw-Reg";
 }
+
+.tooltip {
+  font-family: "NuKinakoMochiFw-Reg" !important;
+}

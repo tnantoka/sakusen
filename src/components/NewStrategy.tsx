@@ -19,6 +19,9 @@ const NewStrategy: React.FC<NewStrategyProps> = ({ history }) => {
   const onChangeText = (e: React.FormEvent<HTMLInputElement>) =>
     setText(e.currentTarget.value);
   const onClickSave = async () => {
+    if (!uid) {
+      return;
+    }
     const ref = await db.collection('strategies').add({
       text,
       profile: {
@@ -46,9 +49,9 @@ const NewStrategy: React.FC<NewStrategyProps> = ({ history }) => {
       </Strategy>
       <p>
         <button
-          className={`nes-btn h3 ${!text.length && 'is-disabled'}`}
+          className={`nes-btn h3 ${!uid && !text.length && 'is-disabled'}`}
           onClick={onClickSave}
-          disabled={!text.length}
+          disabled={!uid || !text.length}
         >
           ほぞんする
         </button>
