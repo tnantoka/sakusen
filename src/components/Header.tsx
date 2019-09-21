@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Navbar,
   NavbarBrand,
@@ -12,10 +13,12 @@ import {
   Container,
 } from 'reactstrap';
 
-import { FirebaseContext, signIn, signOut, deactivate } from './FirebaseAuth';
+import { FirebaseContext, signIn, signOut, deactivate } from '../FirebaseAuth';
 
 const App: React.FC = () => {
-  const { uid, displayName, photoURL } = useContext(FirebaseContext);
+  const { uid, displayName, photoURL, screenName } = useContext(
+    FirebaseContext
+  );
 
   const onClickDeactivate = () => {
     if (!window.confirm('全てのデータを削除して退会します。よろしいですか？')) {
@@ -27,8 +30,10 @@ const App: React.FC = () => {
   return (
     <>
       <Navbar light expand>
-        <Container>
-          <NavbarBrand href="/">さくせん</NavbarBrand>
+        <Container className="px-sm-3">
+          <NavbarBrand tag={Link} to="/">
+            さくせん
+          </NavbarBrand>
           <Nav className="ml-auto" navbar>
             <NavItem>
               {!!photoURL ? (
@@ -45,10 +50,10 @@ const App: React.FC = () => {
             {!!uid && (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  {displayName}
+                  @{screenName}
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem header>Option 1</DropdownItem>
+                  <DropdownItem header>{displayName}</DropdownItem>
                   <DropdownItem onClick={signOut}>ログアウト</DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem onClick={onClickDeactivate}>

@@ -130,7 +130,7 @@ export const deactivate = async () => {
 
   try {
     await firebase.auth().currentUser!.delete();
-  } catch(e) {
+  } catch (e) {
     if (e.code !== 'auth/requires-recent-login') {
       throw e;
     }

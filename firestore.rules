@@ -16,6 +16,16 @@ service cloud.firestore {
       && 'updatedAt' in profile && profile.updatedAt is timestamp;
   }
 
+  function isValidStrategy(strategy) {
+    return strategy.size() == 4
+      && 'text' in strategy && strategy.text is string
+      && 'profile' in strategy && strategy.profile is map
+      && strategy.profile.size() == 1
+      && 'ref' in strategy.profile && strategy.profile.ref is path
+      && 'createdAt' in strategy && strategy.createdAt is timestamp
+      && 'updatedAt' in strategy && strategy.updatedAt is timestamp;
+  }
+
   match /databases/{database}/documents {
     function user(uid) {
       return /databases/$(database)/documents/users/$(uid)
@@ -73,6 +83,22 @@ service cloud.firestore {
         && exists(user(request.auth.uid))
         && !existsAfter(user(request.auth.uid));
     }
+
+    match /strategies/{sid} {
+      allow read;
+
+      allow create: if request.auth != null
+        && isValidStrategy(request.resource.data)
+        && request.resource.data.profile.ref == /databases/$(database)/documents/profiles/$(request.auth.uid)
+        && exists(request.resource.data.profile.ref)
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+
+      allow delete: if request.auth != null
+        && resource.data.profile.ref == /databases/$(database)/documents/profiles/$(request.auth.uid)
+        && exists(resource.data.profile.ref);
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
