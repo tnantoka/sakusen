@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Strategy: React.FC = ({ children }) => {
+interface StrategyProps {
+  text?: string;
+}
+
+const Strategy: React.FC<StrategyProps> = ({ children, text }) => {
   return (
     <div className="nes-container is-rounded is-dark text-left">
       <p className="ml-4 my-2">ガンガンいこうぜ</p>
@@ -9,7 +13,13 @@ const Strategy: React.FC = ({ children }) => {
       <p className="ml-4 my-2">じゅもんつかうな</p>
       <p className="ml-4 my-2">いのちだいじに</p>
       <p className="ml-4 my-2">めいれいさせろ</p>
-      {children}
+      {!text ? (
+        children
+      ) : (
+        <div className="nes-field is-inline">
+          ▶<span className="ml-2">{text}</span>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import * as H from 'history';
+import html2canvas from 'html2canvas';
 
 import Layout from './Layout';
 import Strategy from './Strategy';
@@ -13,12 +14,18 @@ interface NewStrategyProps {
 }
 
 const NewStrategy: React.FC<NewStrategyProps> = ({ history }) => {
-  const { uid } = useContext(FirebaseContext);
+  const { uid, screenName } = useContext(FirebaseContext);
   const [text, setText] = useState<string>('');
+  const previewEl = useRef(null);
 
   const onChangeText = (e: React.FormEvent<HTMLInputElement>) =>
     setText(e.currentTarget.value);
   const onClickSave = async () => {
+    const canvas = await html2canvas(previewEl.current!);
+    console.log(canvas);
+    console.log(canvas.toDataURL());
+    window.open(canvas.toDataURL());
+    return;
     if (!uid) {
       return;
     }
@@ -49,13 +56,28 @@ const NewStrategy: React.FC<NewStrategyProps> = ({ history }) => {
       </Strategy>
       <p>
         <button
-          className={`nes-btn h3 ${!uid && !text.length && 'is-disabled'}`}
+          className={`nes-btn h3 ${(!uid || !text.length) && 'is-disabled'}`}
           onClick={onClickSave}
           disabled={!uid || !text.length}
         >
           ほぞんする
         </button>
       </p>
+      <div className="">
+      <div
+        ref={previewEl}
+        className="d-flex justify-content-center align-items-center flex-column position-fixed"
+        style={{ background: '#212529', width: 1200, height: 630, left: 0 }}
+      >
+        <h2 className="text-light">@{screenName}の　さくせん</h2>
+        <div
+          className="h4"
+          style={{ width: 700, height: 400, lineHeight: 2 }}
+        >
+          <Strategy text={text.length ? text : ' '} />
+        </div>
+      </div>
+      </div>
     </Layout>
   );
 };

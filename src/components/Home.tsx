@@ -73,11 +73,7 @@ const Home: React.FC<HomeProps> = ({ history }) => {
       </p>
       {strategies.map(snapshot => (
         <Link key={snapshot.id} to={`/s/${snapshot.id}`}>
-          <Strategy key={snapshot.id}>
-            <div className="nes-field is-inline">
-              ▶<span className="ml-2">{snapshot.get('text')}</span>
-            </div>
-          </Strategy>
+          <Strategy key={snapshot.id} text={snapshot.get('text')} />
         </Link>
       ))}
       {hasNextPage && (

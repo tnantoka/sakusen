@@ -47,16 +47,26 @@ const ShowStrategy: React.FC<ShowStrategyProps> = ({
     await db.doc(`strategies/${sid}`).delete();
     history.push(`/`);
   };
+
   return (
     <Layout>
       <h1>
         <a href={`https://twitter.com/${screenName}`}>@{screenName}</a>
       </h1>
-      <Strategy>
-        <div className="nes-field is-inline">
-          ▶<span className="ml-2">{text}</span>
-        </div>
-      </Strategy>
+      <Strategy text={text} />
+      <p>
+        <a
+          className="nes-btn h3 is-primary"
+          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+            `さくせんを　へんこう　しました ` +
+              window.location.href.replace('/s/', '/share/')
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          つぶやく
+        </a>
+      </p>
       {isOwner && (
         <p>
           <button className="nes-btn h3 is-error" onClick={onClickDelete}>
