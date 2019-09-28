@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
 const db = admin.firestore();
+const bucket = admin.storage().bucket();
 
 export default functions.https.onRequest(async (req, res) => {
   try {
@@ -11,15 +12,22 @@ export default functions.https.onRequest(async (req, res) => {
       res.status(404).send('Not Found');
       return;
     }
-    const profile = await strategy.get('profile.ref').get();
+    const [uid] = await strategy
+      .get('profile.ref')
+      .path.split('/')
+      .slice(-1);
     res.set('cache-control', 'public, max-age=3600');
-    res.send(html(sid, strategy.get('text'), ''));
+    res.send(await generateHTML(uid, sid, strategy.get('text')));
   } catch (e) {
+    console.error(e);
     res.status(500).send('Internal Server Error');
   }
 });
 
-const html = (sid: string, text: string, image: string) => {
+const generateHTML = async (uid: string, sid: string, text: string) => {
+  const image = await bucket
+    .file(`users/${uid}/strategies/${sid}`)
+    .getSignedUrl({ action: 'read', expires: new Date().getTime() + 3600000 });
   return `<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -28,9 +36,9 @@ const html = (sid: string, text: string, image: string) => {
   <meta property="og:image" content=${image}>
 </head>
 <body>
-<!--script-->
+<script>
 location.href = '/s/${sid}';
-<!--/script-->
+</script>
 </body>
 </html>`;
 };

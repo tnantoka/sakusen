@@ -72,7 +72,11 @@ const Home: React.FC<HomeProps> = ({ history }) => {
         )}
       </p>
       {strategies.map(snapshot => (
-        <Link key={snapshot.id} to={`/s/${snapshot.id}`}>
+        <Link
+          key={snapshot.id}
+          to={`/s/${snapshot.id}`}
+          className="text-decoration-none"
+        >
           <Strategy key={snapshot.id} text={snapshot.get('text')} />
         </Link>
       ))}

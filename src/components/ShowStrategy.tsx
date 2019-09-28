@@ -9,6 +9,7 @@ import { FirebaseContext } from '../FirebaseAuth';
 interface ShowStrategyProps extends RouteComponentProps<{ sid: string }> {}
 
 const db = firebase.firestore();
+const storage = firebase.storage();
 
 const ShowStrategy: React.FC<ShowStrategyProps> = ({
   match: {
@@ -41,17 +42,21 @@ const ShowStrategy: React.FC<ShowStrategyProps> = ({
     if (!uid) {
       return;
     }
-    if (!window.confirm('この作戦を削除します。よろしいですか？')) {
+    if (!window.confirm('削除します。よろしいですか？')) {
       return;
     }
     await db.doc(`strategies/${sid}`).delete();
+    await storage.ref(`users/${uid}/strategies/${sid}`).delete();
+
     history.push(`/`);
   };
 
   return (
     <Layout>
       <h1>
-        <a href={`https://twitter.com/${screenName}`}>@{screenName}</a>
+        <a href={`https://twitter.com/${screenName}`}>
+          @{screenName}の　さくせん
+        </a>
       </h1>
       <Strategy text={text} />
       <p>
