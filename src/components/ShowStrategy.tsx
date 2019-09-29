@@ -63,7 +63,7 @@ const ShowStrategy: React.FC<ShowStrategyProps> = ({
         <a
           className="nes-btn h3 is-primary"
           href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-            `さくせんを　へんこう　しました ` +
+            `さくせんを　へんこう　しました\n` +
               window.location.href.replace('/s/', '/share/')
           )}`}
           target="_blank"

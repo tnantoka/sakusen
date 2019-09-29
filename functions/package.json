@@ -3,7 +3,7 @@
   "scripts": {
     "lint": "tslint --project tsconfig.json",
     "build": "tsc",
-    "serve": "npm run build && firebase serve --only functions",
+    "serve": "npm run build && GOOGLE_APPLICATION_CREDENTIALS=firebase-adminsdk.json firebase serve --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",

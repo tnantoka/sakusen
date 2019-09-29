@@ -66,7 +66,7 @@ const Home: React.FC<HomeProps> = ({ history }) => {
           </button>
         </span>
         {!uid && (
-          <UncontrolledTooltip placement="right" target="newStrategy">
+          <UncontrolledTooltip placement="top" target="newStrategy">
             <span className="nes-text">ログインしてください</span>
           </UncontrolledTooltip>
         )}
