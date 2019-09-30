@@ -19,6 +19,7 @@ service cloud.firestore {
   function isValidStrategy(strategy) {
     return strategy.size() == 4
       && 'text' in strategy && strategy.text is string
+      && strategy.text.size() <= 10
       && 'profile' in strategy && strategy.profile is map
       && strategy.profile.size() == 1
       && 'ref' in strategy.profile && strategy.profile.ref is path

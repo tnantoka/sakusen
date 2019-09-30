@@ -45,9 +45,9 @@ const NewStrategy: React.FC<NewStrategyProps> = ({ history }) => {
   };
 
   return (
-    <Layout>
+    <Layout title="さくせんをねる">
       <Strategy>
-        <div className="nes-field is-inline">
+        <div className="nes-field is-inline d-flex">
           ▶
           <input
             type="text"
@@ -57,6 +57,7 @@ const NewStrategy: React.FC<NewStrategyProps> = ({ history }) => {
             value={text}
             ref={textEl}
             style={{ letterSpacing }}
+            maxLength={10}
           />
         </div>
       </Strategy>
@@ -85,7 +86,7 @@ const generateImageDataURL = (screenName: string, text: string): string => {
   context.fillStyle = 'white';
   context.textAlign = 'center';
   context.font = '48px NuKinakoMochiFw-Reg';
-  context.fillText(`@${screenName}の　さくせん`, canvas.width / 2, 80);
+  context.fillText(`@${screenName}のさくせん`, canvas.width / 2, 80);
 
   context.font = '20px NuKinakoMochiFw-Reg';
   const frames = [

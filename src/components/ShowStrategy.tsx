@@ -52,12 +52,14 @@ const ShowStrategy: React.FC<ShowStrategyProps> = ({
   };
 
   return (
-    <Layout>
-      <h1>
-        <a href={`https://twitter.com/${screenName}`}>
-          @{screenName}の　さくせん
-        </a>
-      </h1>
+    <Layout
+      title={
+        <>
+          <a href={`https://twitter.com/${screenName}`}>@{screenName}</a>
+          のさくせん
+        </>
+      }
+    >
       <Strategy text={text} />
       <p>
         <a
