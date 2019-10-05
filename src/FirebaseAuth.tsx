@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import firebase from './firebase';
 
 const db = firebase.firestore();
+const storage = firebase.storage();
 
 interface FirebaseContextState {
   uid: string | null;
@@ -123,10 +124,21 @@ export const signOut = () => {
 export const deactivate = async () => {
   const user = firebase.auth().currentUser!;
 
+  const strategyIds = (await db
+    .collection('strategies')
+    .where('profile.ref', '==', db.doc(`profiles/${user.uid}`))
+    .get()).docs.map(({ id }) => id);
   const batch = db.batch();
   batch.delete(db.doc(`users/${user.uid}`));
   batch.delete(db.doc(`profiles/${user.uid}`));
+  strategyIds.forEach(sid => batch.delete(db.doc(`strategies/${sid}`)));
   await batch.commit();
+
+  await Promise.all(
+    strategyIds.map(async sid => {
+      await storage.ref(`users/${user.uid}/strategies/${sid}`).delete();
+    })
+  );
 
   try {
     await firebase.auth().currentUser!.delete();
