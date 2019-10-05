@@ -55,17 +55,25 @@ const ShowStrategy: React.FC<ShowStrategyProps> = ({
     <Layout
       title={
         <>
-          <a href={`https://twitter.com/${screenName}`}>@{screenName}</a>
+          <a
+            href={`https://twitter.com/${screenName}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @{screenName}
+          </a>
           のさくせん
         </>
       }
     >
-      <Strategy text={text} />
-      <p>
+      <div className="my-3">
+        <Strategy text={text} />
+      </div>
+      <p className="my-5">
         <a
           className="nes-btn h3 is-primary"
           href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-            `さくせんを　へんこう　しました\n` +
+            `さくせんを「${text}」にへんこうしました\n` +
               window.location.href.replace('/s/', '/share/')
           )}`}
           target="_blank"
@@ -75,7 +83,7 @@ const ShowStrategy: React.FC<ShowStrategyProps> = ({
         </a>
       </p>
       {isOwner && (
-        <p>
+        <p className="my-5">
           <button className="nes-btn h3 is-error" onClick={onClickDelete}>
             さくじょする
           </button>

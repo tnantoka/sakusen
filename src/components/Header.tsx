@@ -54,10 +54,17 @@ const App: React.FC = () => {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem header>{displayName}</DropdownItem>
+                  <DropdownItem tag={Link} to="/">
+                    ホーム
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/new">
+                    さくせんをねる
+                  </DropdownItem>
+                  <DropdownItem divider />
                   <DropdownItem onClick={signOut}>ログアウト</DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem onClick={onClickDeactivate}>
-                    たいかい
+                    <span className="text-danger">退会</span>
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>

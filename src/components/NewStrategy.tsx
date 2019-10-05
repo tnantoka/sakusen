@@ -46,22 +46,24 @@ const NewStrategy: React.FC<NewStrategyProps> = ({ history }) => {
 
   return (
     <Layout title="さくせんをねる">
-      <Strategy>
-        <div className="nes-field is-inline d-flex">
-          ▶
-          <input
-            type="text"
-            className="nes-input is-dark ml-2 border-0"
-            placeholder="あなたのさくせん"
-            onChange={onChangeText}
-            value={text}
-            ref={textEl}
-            style={{ letterSpacing }}
-            maxLength={10}
-          />
-        </div>
-      </Strategy>
-      <p>
+      <div className="my-3">
+        <Strategy>
+          <div className="nes-field is-inline d-flex">
+            ▶
+            <input
+              type="text"
+              className="nes-input is-dark ml-2 border-0"
+              placeholder="あなたのさくせん"
+              onChange={onChangeText}
+              value={text}
+              ref={textEl}
+              style={{ letterSpacing }}
+              maxLength={10}
+            />
+          </div>
+        </Strategy>
+      </div>
+      <p className="my-5">
         <button
           className={`nes-btn h3 ${(!uid || !text.length) && 'is-disabled'}`}
           onClick={onClickSave}

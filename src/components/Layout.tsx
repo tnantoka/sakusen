@@ -11,7 +11,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
     <>
       <Header />
       <Container>
-        {!!title && <h1 className="text-center">{title}</h1>}
+        {!!title && <h1 className="text-center my-5">{title}</h1>}
         <Row>
           <Col
             xs={{ size: 10, offset: 1 }}
@@ -22,6 +22,16 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
             {children}
           </Col>
         </Row>
+        <p className="text-center">
+          <a
+            href="https://chickenknife.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-decoration-none"
+          >
+            &copy; Chicken Knife
+          </a>
+        </p>
       </Container>
     </>
   );

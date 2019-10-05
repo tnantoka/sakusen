@@ -56,7 +56,7 @@ const Home: React.FC<HomeProps> = ({ history }) => {
 
   return (
     <Layout>
-      <p>
+      <p className="my-5">
         <span id="newStrategy">
           <button
             className={`nes-btn is-primary h3 ${!uid && 'is-disabled'}`}
@@ -75,13 +75,13 @@ const Home: React.FC<HomeProps> = ({ history }) => {
         <Link
           key={snapshot.id}
           to={`/s/${snapshot.id}`}
-          className="text-decoration-none"
+          className="text-decoration-none d-block my-4"
         >
           <Strategy key={snapshot.id} text={snapshot.get('text')} />
         </Link>
       ))}
       {hasNextPage && (
-        <p>
+        <p className="py-5">
           <button className="nes-btn h3" onClick={onClickMore}>
             もっとみる
           </button>
