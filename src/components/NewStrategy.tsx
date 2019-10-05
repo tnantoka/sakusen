@@ -57,7 +57,7 @@ const NewStrategy: React.FC<NewStrategyProps> = ({ history }) => {
               onChange={onChangeText}
               value={text}
               ref={textEl}
-              style={{ letterSpacing }}
+              style={{ letterSpacing, fontFeatureSettings: '"ss01"' }}
               maxLength={10}
             />
           </div>
@@ -65,7 +65,7 @@ const NewStrategy: React.FC<NewStrategyProps> = ({ history }) => {
       </div>
       <p className="my-5">
         <button
-          className={`nes-btn h3 ${(!uid || !text.length) && 'is-disabled'}`}
+          className={`nes-btn h3 is-primary ${(!uid || !text.length) && 'is-disabled'}`}
           onClick={onClickSave}
           disabled={!uid || !text.length}
         >

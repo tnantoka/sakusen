@@ -15,7 +15,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
         <Row>
           <Col
             xs={{ size: 10, offset: 1 }}
-            sm={{ size: 8, offset: 2 }}
+            md={{ size: 8, offset: 2 }}
             lg={{ size: 6, offset: 3 }}
             className="px-0 text-center"
           >

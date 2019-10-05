@@ -17,7 +17,7 @@ export const letterSpacing = 8;
 const Strategy: React.FC<StrategyProps> = ({ children, text }) => {
   return (
     <div
-      className="nes-container is-rounded is-dark text-left with-title"
+      className="nes-container is-rounded is-dark text-left with-title h4"
       style={{ letterSpacing }}
     >
       {defaultStrategies.map((strategy, i) => (
@@ -29,7 +29,7 @@ const Strategy: React.FC<StrategyProps> = ({ children, text }) => {
         children
       ) : (
         <div className="nes-field is-inline">
-          ▶<span className="ml-4">{text}</span>
+          ▶<span className="ml-3">{text}</span>
         </div>
       )}
     </div>
