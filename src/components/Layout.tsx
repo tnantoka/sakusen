@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
+
 import Header from './Header';
+import AdBanner from './AdBanner';
 
 interface LayoutProps {
   title?: React.ReactNode;
@@ -22,6 +24,9 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
             {children}
           </Col>
         </Row>
+        <div className="text-center">
+          <AdBanner />
+        </div>
         <p className="text-center">
           <a
             href="https://chickenknife.com"
