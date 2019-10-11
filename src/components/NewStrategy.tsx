@@ -63,9 +63,9 @@ const NewStrategy: React.FC<NewStrategyProps> = ({ history }) => {
           </div>
         </Strategy>
       </div>
-      <p className="my-5">
+      <p className="my-5 pl-1 pr-3">
         <button
-          className={`nes-btn h3 is-primary ${(!uid || !text.length) && 'is-disabled'}`}
+          className={`nes-btn h3 w-100 is-primary ${(!uid || !text.length) && 'is-disabled'}`}
           onClick={onClickSave}
           disabled={!uid || !text.length}
         >

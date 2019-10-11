@@ -57,9 +57,9 @@ const Home: React.FC<HomeProps> = ({ history }) => {
   return (
     <Layout>
       <p className="my-5">
-        <span id="newStrategy">
+        <span id="newStrategy" className="d-block pl-1 pr-3">
           <button
-            className={`nes-btn is-primary h3 ${!uid && 'is-disabled'}`}
+            className={`nes-btn is-primary h3 w-100 ${!uid && 'is-disabled'}`}
             onClick={onClickNewStrategy}
           >
             さくせんをねる
@@ -81,8 +81,8 @@ const Home: React.FC<HomeProps> = ({ history }) => {
         </Link>
       ))}
       {hasNextPage && (
-        <p className="py-5">
-          <button className="nes-btn h3" onClick={onClickMore}>
+        <p className="py-5 pl-1 pr-3">
+          <button className="nes-btn w-100 h3" onClick={onClickMore}>
             もっとみる
           </button>
         </p>

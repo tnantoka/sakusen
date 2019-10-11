@@ -69,9 +69,9 @@ const ShowStrategy: React.FC<ShowStrategyProps> = ({
       <div className="my-3">
         <Strategy text={text} />
       </div>
-      <p className="my-5">
+      <p className="my-5 pl-1 pr-3">
         <a
-          className="nes-btn h3 is-primary"
+          className="nes-btn h3 w-100 is-primary"
           href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
             `さくせんを「${text}」にへんこうしました\n` +
               window.location.href.replace('/s/', '/share/')
@@ -83,8 +83,8 @@ const ShowStrategy: React.FC<ShowStrategyProps> = ({
         </a>
       </p>
       {isOwner && (
-        <p className="my-5">
-          <button className="nes-btn h3 is-error" onClick={onClickDelete}>
+        <p className="my-5 pl-1 pr-3">
+          <button className="nes-btn w-100 h3 is-error" onClick={onClickDelete}>
             さくじょする
           </button>
         </p>
