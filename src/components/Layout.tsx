@@ -24,7 +24,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
             {children}
           </Col>
         </Row>
-        <div className="text-center">
+        <div className="text-center mb-5">
           <AdBanner />
         </div>
         <p className="text-center">

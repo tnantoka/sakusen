@@ -52,7 +52,7 @@ const NewStrategy: React.FC<NewStrategyProps> = ({ history }) => {
             ▶
             <input
               type="text"
-              className="nes-input is-dark ml-2 border-0"
+              className="nes-input is-dark ml-2 border-0 bg-transparent"
               placeholder="あなたのさくせん"
               onChange={onChangeText}
               value={text}
@@ -92,9 +92,9 @@ const generateImageDataURL = (screenName: string, text: string): string => {
 
   context.font = '20px NuKinakoMochiFw-Reg';
   const frames = [
-    `┌${'┬'.repeat(30)}┐`,
+    `╭${'┬'.repeat(30)}╮`,
     ...Array(22).fill(`├${'　'.repeat(30)}┤`),
-    `└${'┴'.repeat(30)}┘`,
+    `╰${'┴'.repeat(30)}╯`,
   ];
 
   const textTop = 180;

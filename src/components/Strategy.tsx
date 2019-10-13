@@ -17,7 +17,7 @@ export const letterSpacing = 8;
 const Strategy: React.FC<StrategyProps> = ({ children, text }) => {
   return (
     <div
-      className="nes-container is-rounded is-dark text-left with-title h4"
+      className="nes-container is-rounded is-dark text-left with-title h4 overlow-hidden"
       style={{ letterSpacing }}
     >
       {defaultStrategies.map((strategy, i) => (

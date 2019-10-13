@@ -10,7 +10,7 @@ import { FirebaseContext } from '../FirebaseAuth';
 
 const db = firebase.firestore();
 
-const PER_PAGE = 2;
+const PER_PAGE = 5;
 
 interface HomeProps {
   history: H.History;
