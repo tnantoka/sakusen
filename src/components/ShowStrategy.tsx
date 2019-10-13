@@ -60,7 +60,7 @@ const ShowStrategy: React.FC<ShowStrategyProps> = ({
             target="_blank"
             rel="noopener noreferrer"
           >
-            @{screenName}
+            ＠{screenName}
           </a>
           のさくせん
         </>

@@ -1,14 +1,14 @@
 @font-face {
-  font-family: "NuKinakoMochiFw-Reg";
-  src: url("/assets/NuKinakoMochiFw-Reg.eot?") format('eot'),
-       url("/assets/NuKinakoMochiFw-Reg.woff2") format('woff2'),
-       url("/assets/NuKinakoMochiFw-Reg.woff") format('woff');
+  font-family: "MisakiGothic2nd";
+  src: url("/assets/misaki_gothic_2nd.eot?") format('eot'),
+       url("/assets/misaki_gothic_2nd.woff2") format('woff2'),
+       url("/assets/misaki_gothic_2nd.woff") format('woff');
 }
 
 body {
-  font-family: "NuKinakoMochiFw-Reg";
+  font-family: "MisakiGothic2nd";
 }
 
 .tooltip {
-  font-family: "NuKinakoMochiFw-Reg" !important;
+  font-family: "MisakiGothic2nd" !important;
 }

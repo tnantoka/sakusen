@@ -57,7 +57,7 @@ const NewStrategy: React.FC<NewStrategyProps> = ({ history }) => {
               onChange={onChangeText}
               value={text}
               ref={textEl}
-              style={{ letterSpacing, fontFeatureSettings: '"ss01"' }}
+              style={{ letterSpacing }}
               maxLength={10}
             />
           </div>
@@ -65,7 +65,8 @@ const NewStrategy: React.FC<NewStrategyProps> = ({ history }) => {
       </div>
       <p className="my-5 pl-1 pr-3">
         <button
-          className={`nes-btn h3 w-100 is-primary ${(!uid || !text.length) && 'is-disabled'}`}
+          className={`nes-btn h3 w-100 is-primary ${(!uid || !text.length) &&
+            'is-disabled'}`}
           onClick={onClickSave}
           disabled={!uid || !text.length}
         >
@@ -87,14 +88,14 @@ const generateImageDataURL = (screenName: string, text: string): string => {
 
   context.fillStyle = 'white';
   context.textAlign = 'center';
-  context.font = '48px NuKinakoMochiFw-Reg';
-  context.fillText(`@${screenName}のさくせん`, canvas.width / 2, 80);
+  context.font = '48px MisakiGothic2nd';
+  context.fillText(`＠${screenName}のさくせん`, canvas.width / 2, 80);
 
-  context.font = '20px NuKinakoMochiFw-Reg';
+  context.font = '20px MisakiGothic2nd';
   const frames = [
-    `╭${'┬'.repeat(30)}╮`,
-    ...Array(22).fill(`├${'　'.repeat(30)}┤`),
-    `╰${'┴'.repeat(30)}╯`,
+    `┏${'━'.repeat(30)}┓`,
+    ...Array(22).fill(`┃${'　'.repeat(30)}┃`),
+    `┗${'━'.repeat(30)}┛`,
   ];
 
   const textTop = 180;
@@ -104,7 +105,7 @@ const generateImageDataURL = (screenName: string, text: string): string => {
     context.fillText(frame, canvas.width / 2, textTop - 50 + 20 * i);
   });
 
-  context.font = '34px NuKinakoMochiFw-Reg';
+  context.font = '34px MisakiGothic2nd';
   context.textAlign = 'left';
   defaultStrategies.forEach((strategy, i) => {
     strategy.split('').forEach((character, j) => {

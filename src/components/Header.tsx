@@ -50,7 +50,7 @@ const App: React.FC = () => {
             {!!uid && (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  @{screenName}
+                  ＠{screenName}
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem header>{displayName}</DropdownItem>

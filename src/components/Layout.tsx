@@ -34,7 +34,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
             rel="noopener noreferrer"
             className="text-decoration-none"
           >
-            &copy; Chicken Knife
+            (c) Chicken Knife
           </a>
         </p>
       </Container>
