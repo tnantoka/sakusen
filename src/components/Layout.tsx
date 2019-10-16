@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import Rollbar from 'rollbar';
 
 import Header from './Header';
 import AdBanner from './AdBanner';
@@ -9,6 +10,17 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ title, children }) => {
+  useState(
+    new Rollbar({
+      accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
+      captureUncaught: true,
+      captureUnhandledRejections: true,
+      payload: {
+        environment: process.env.NODE_ENV,
+      },
+    })
+  );
+
   return (
     <>
       <Header />
