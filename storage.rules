@@ -1,8 +1,13 @@
 service firebase.storage {
+  function isValidStrategy(strategy) {
+    return strategy.size < 50 * 1024
+      && strategy.contentType.matches('image/png');
+  }
   match /b/{bucket}/o {
     match /users/{uid}/strategies/{sid} {
       allow create, delete: if request.auth != null
-        && request.auth.uid == uid;
+        && request.auth.uid == uid
+        && isValidStrategy(request.resource);
     }
 
     match /{allPaths=**} {
