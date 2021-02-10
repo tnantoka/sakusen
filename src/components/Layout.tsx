@@ -40,13 +40,14 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
           <AdBanner />
         </div>
         <p className="text-center">
+          (c) 2012 - 2021
           <a
-            href="https://chickenknife.com"
+            href="https://note.com/tnantoka/n/n4901c1af2adb"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-decoration-none"
+            className="text-decoration-none ml-2"
           >
-            (c) Chicken Knife
+            @tnantoka
           </a>
         </p>
       </Container>
